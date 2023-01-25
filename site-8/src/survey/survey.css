@@ -1,0 +1,296 @@
+.survey {
+  width: 740px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 40px 0 20px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 4px 10px rgb(0 0 0 / 6%);
+}
+
+.survey_block_1 {
+  width: 324px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.gender_selet {
+  width: 100%;
+  margin-top: 30px;
+}
+.gender_selet p {
+  margin: 30px 0;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #486193;
+}
+
+.set_gender {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.set_gender button {
+  width: 156px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #496294;
+  font-size: 15px;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  background: #fff;
+  font-weight: 600;
+  border: 1px solid rgba(172, 184, 204, 0.8);
+}
+.active_gender_looking {
+  box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+  color: #fff !important;
+  background: linear-gradient(87.76deg, #3681c7 12.31%, #3c96ff 99.23%),
+    linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%) !important;
+}
+.set_gender button:hover {
+  background: linear-gradient(87.76deg, #3681c7 12.31%, #3c96ff 99.23%),
+    linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%) !important    ;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+  color: #fff;
+  border: #fff;
+  transition: all 0.4s ease;
+}
+
+.next_btn button {
+  width: 100%;
+
+  background: linear-gradient(0deg, #e6edfa, #e6edfa),
+    linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%);
+  color: rgba(54, 66, 90, 0.5);
+
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 14px 20px 15px;
+  border: none;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.next_btn_active button {
+  width: 100%;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 14px 20px 15px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%);
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.4s ease;
+}
+
+.next_btn_active button:hover {
+  transition: all 0.4s ease;
+  transform: scale(1.03);
+}
+
+.btm_ident {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.btm_ident div {
+  width: 8px;
+  height: 8px;
+  background-color: #e6edfa;
+
+  border-radius: 50%;
+  margin: 0 2px;
+}
+.btm_ident_item_active {
+  background: #ff1c2d !important;
+}
+
+.seeking_bl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seeking_bl button {
+  width: 100%;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #496294;
+  font-size: 15px;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  background: #fff;
+  font-weight: 600;
+  border: 1px solid rgba(172, 184, 204, 0.8);
+  margin: 4px 0;
+}
+
+.seeking_bl button:hover {
+  background: linear-gradient(87.76deg, #3681c7 12.31%, #3c96ff 99.23%),
+    linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%) !important    ;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+  color: #fff;
+  border: #fff;
+  transition: all 0.4s ease;
+}
+.seeking_active_btn {
+  background: linear-gradient(87.76deg, #3681c7 12.31%, #3c96ff 99.23%),
+    linear-gradient(264.57deg, #ff1c2d 3.89%, #d4202d 96.42%) !important    ;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+  color: #fff !important;
+  border: #fff;
+}
+
+.prefer_block h3 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #35425a;
+}
+
+.prefer_block p {
+  font-weight: 400;
+  color: rgba(51, 85, 68, 0.685);
+  font-size: 15px;
+  margin: 6px 0 30px;
+}
+.prefer_carts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.prefer_carts div {
+  width: 155px;
+  height: 114px;
+  border: 1px solid rgba(172, 184, 204, 0.8);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+.prefer_carts div:hover {
+  transition: all 0.4s ease;
+  filter: brightness(0.6);
+
+  border: 2px solid #3681c7;
+}
+.active_prefer {
+  transition: all 0.4s ease;
+  filter: brightness(0.6);
+
+  border: 3px solid #3681c7 !important;
+}
+.prefer_carts div p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.prefer_cart {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.prefer_cart_men_1 {
+  background-image: url(../assets/carts/mens/asian.jpg);
+}
+
+.prefer_cart_men_2 {
+  background-image: url(../assets/carts/mens/latin.jpg);
+}
+.prefer_cart_men_3 {
+  background-image: url(../assets/carts/mens/europe.jpg);
+}
+.prefer_cart_men_4 {
+  background-image: url(../assets/carts/mens/northamerica.jpg);
+}
+.prefer_cart_men_5 {
+  background-image: url(../assets/carts/mens/african.jpg);
+}
+.prefer_cart_men_6 {
+  background-image: url(../assets/carts/mens/all.jpg);
+}
+
+.prefer_cart_girl_1 {
+  background-image: url(../assets/carts/girls/asian.jpg);
+}
+.prefer_cart_girl_2 {
+  background-image: url(../assets/carts/girls/latin.jpg);
+}
+.prefer_cart_girl_3 {
+  background-image: url(../assets/carts/girls/europ.jpg);
+}
+.prefer_cart_girl_4 {
+  background-image: url(../assets/carts/girls/northamerica.jpg);
+}
+.prefer_cart_girl_5 {
+  background-image: url(../assets/carts/girls/african.jpg);
+}
+.prefer_cart_girl_6 {
+  background-image: url(../assets/carts/girls/all.jpg);
+}
+
+@media only screen and (max-width: 500px) {
+  .gender_selet p {
+    margin: 15px 0;
+  }
+  .gender_selet {
+    margin-top: 15px;
+  }
+
+  .survey_block_1 {
+    margin-top: 20px;
+  }
+  .survey {
+    padding-top: 0;
+  }
+  .prev_field {
+    top: 20px;
+    left: 18px;
+  }
+  .prefer_block h3 {
+    margin-top: 10px;
+    font-size: 17px;
+  }
+  .prefer_block p {
+    font-size: 13px;
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+}

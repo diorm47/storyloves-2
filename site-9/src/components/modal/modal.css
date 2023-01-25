@@ -1,0 +1,241 @@
+.modal_block {
+  width: 100%;
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.field_1,
+.field_2 {
+  width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  width: 100%;
+}
+.field_1 p,
+.field_2 p {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.your_age,
+.your_name,
+.your_city,
+.password_sign,
+.email_sign {
+  width: 100%;
+}
+.your_age select {
+  width: 100% !important;
+  height: 40px;
+  border-color: gray;
+  outline: none;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.your_age option {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-color: gray;
+}
+select:required:invalid {
+  color: gray;
+}
+
+.your_age option[value=""][disabled] {
+  display: none;
+}
+
+.your_age select::-webkit-scrollbar,
+.your_age option::-webkit-scrollbar {
+  width: 3px;
+  height: 4px;
+  background-color: rgba(170, 170, 170, 0.56);
+}
+
+.your_age select::-webkit-scrollbar-thumb,
+.your_age option::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.289);
+}
+.your_age option,
+.your_age select {
+  text-align: center;
+  text-align-last: center;
+}
+
+.field_1 input,
+.field_2 input {
+  width: 100% !important;
+  height: 40px;
+  text-align: center;
+
+  outline: none;
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 4px;
+  margin-top: 15px;
+  border: 1px solid gray;
+}
+
+.field_1 input::placeholder,
+.field_2 input::placeholder {
+  color: gray;
+}
+
+.submit_btn {
+  width: 100%;
+}
+.submit_btn button,
+.submit_btn_2_field button {
+  width: 100%;
+  margin-top: 16px;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+
+  text-align: center;
+  background-color: #574d9b;
+  padding: 13px 0;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 40px;
+  transition: all 0.5s ease;
+  margin-bottom: 30px;
+}
+
+.submit_btn button:hover,
+.submit_btn_2_field button:hover {
+  transition: all 0.5s ease;
+  background-color: #766cbb;
+  box-shadow: -1px 10px 35px -10px rgba(0, 0, 0, 0.66);
+  -webkit-box-shadow: -1px 10px 35px -10px rgba(0, 0, 0, 0.66);
+  -moz-box-shadow: -1px 10px 35px -10px rgba(0, 0, 0, 0.66);
+}
+
+.suggestions {
+  width: 100%;
+  border: 1px solid #999;
+  background: #fff;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+}
+
+.suggestions li {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 3px;
+  height: 4px;
+  background-color: rgba(170, 170, 170, 0.56);
+}
+
+.suggestions:-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.289);
+}
+.field_1 div,
+.field_2 div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changing_fields span {
+  color: red;
+  text-align: center;
+  margin-top: 3px;
+  font-size: 10px;
+}
+
+.block_field_1 {
+  display: none;
+}
+@media only screen and (max-width: 1020px) {
+  .modal_block {
+    width: 380px;
+    height: 80vh;
+    padding: 0 15px;
+    border-radius: 10px;
+  }
+  .modal_title h1 {
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  .modal_wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .modal_block {
+    height: 500px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .field_1,
+  .field_2 {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .changing_fields {
+    width: 100%;
+  }
+  .modal_block {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  .regisration_form {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

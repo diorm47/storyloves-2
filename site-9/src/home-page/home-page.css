@@ -1,0 +1,488 @@
+.home_page {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(32deg, #d6e1e8 -0.84%, rgba(214, 225, 232, 0) 39%),
+    linear-gradient(
+      103.83deg,
+      #c9d7f0 8.13%,
+      #d4d2e9 33.38%,
+      #dadaf4 50.11%,
+      #e8d3dd 81.31%
+    );
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 8%;
+}
+.survey_title p {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: #404040;
+  margin-bottom: 40px;
+}
+
+.survey_items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+}
+
+.survey_items .survey_item {
+  display: flex;
+
+  line-height: 1;
+  text-align: center;
+  color: #333030;
+  padding: 18px 22px;
+
+  background: #f5f5f5;
+  border-radius: 100px;
+  transition: 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.survey_items .survey_item p {
+  font-size: 13px;
+  font-weight: 700 !important;
+  font-size: 14px;
+}
+
+.survey_items .survey_item:hover {
+  color: #f5f5f5;
+  background: #333030;
+  transition: 0.3s ease;
+}
+.survey_items .ative_survey {
+  color: #f5f5f5;
+  background: #333030;
+}
+.genders_toggles p,
+.between_ages p {
+  font-size: 15px !important;
+  font-weight: 600;
+}
+.survey_2 {
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.survey_2 .take_chance {
+  margin-top: 60px;
+}
+
+.moodError {
+  text-align: center;
+  margin-top: -35px;
+  margin-bottom: 30px;
+  font-size: 11px;
+  color: red;
+}
+.right_img_circle {
+  width: 550px;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.right_img_circle div img {
+  border-radius: 50%;
+}
+.right_img_circle .circle_1 {
+  position: absolute;
+  top: 0;
+  right: 110px;
+}
+.right_img_circle .circle_1 img {
+  width: 210px;
+}
+.right_img_circle .circle_2 img {
+  width: 140px;
+}
+.right_img_circle .circle_3 img {
+  width: 140px;
+}
+.right_img_circle .circle_4 img {
+  width: 156px;
+}
+.right_img_circle .circle_5 img {
+  width: 178px;
+}
+.right_img_circle .circle_6 img {
+  width: 150px;
+}
+
+.right_img_circle .circle_2 {
+  position: absolute;
+  right: 20px;
+  top: 170px;
+}
+.right_img_circle .circle_3 {
+  position: absolute;
+  right: 60px;
+  bottom: 80px;
+}
+.right_img_circle .circle_4 {
+  position: absolute;
+  bottom: 0;
+  left: 180px;
+}
+.right_img_circle .circle_5 {
+  position: absolute;
+  bottom: 120px;
+  left: 0;
+}
+.right_img_circle .circle_6 {
+  position: absolute;
+  left: 80px;
+  top: 90px;
+}
+.circle_logo {
+  width: 265px;
+  height: 265px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.774);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: static;
+  z-index: 5;
+}
+.circle_logo img {
+  background: #c00;
+  padding: 5px;
+  border-radius: 4px !important;
+}
+.mob_circle_img {
+  display: none;
+  width: 100%;
+}
+
+.regisration_form {
+  width: 500px;
+  background: #ffffffe6;
+  border-radius: 30px;
+  padding: 35px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 85;
+}
+
+.form_logo {
+  background: #c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+.form_logo img {
+  width: 150px;
+}
+
+.form_title h1 {
+  margin-top: 15px;
+  font-size: 32px;
+  font-weight: normal;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #404040;
+  font-weight: 700;
+}
+.form_title p {
+  display: inline-block;
+  width: 100%;
+  line-height: 1.2;
+  text-align: center;
+  color: #404040;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.genders_toggles {
+  display: flex;
+
+  justify-content: space-between;
+  width: 100%;
+}
+.genders_toggles svg {
+  margin-top: 8px;
+  width: 40px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.genders_toggles svg path {
+  fill: #cccccc;
+}
+.male_active_svg path {
+  fill: #0d8fba !important;
+}
+.famale_active_svg path {
+  fill: #e6282e !important;
+}
+.genders_toggles .my_gender_iden .my_genderis,
+.genders_toggles .seeking_gender_iden .sheeking_genderis {
+  display: flex;
+  align-items: center;
+}
+.genders_toggles .my_gender_iden,
+.genders_toggles .seeking_gender_iden {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.genders_toggles .my_gender_iden p,
+.genders_toggles .seeking_gender_iden p {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #222;
+}
+.error_gender p {
+  color: #c00 !important;
+  font-size: 10px !important;
+}
+
+.between_ages {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.between_ages p {
+  font-size: 18px;
+  color: #222;
+}
+
+.between_ages select,
+.between_ages option {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #71717182 !important;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  color: #71717182;
+}
+
+.between_ages select::-webkit-scrollbar,
+.between_ages option::-webkit-scrollbar {
+  width: 3px;
+  height: 4px;
+  background-color: rgba(170, 170, 170, 0.56);
+}
+
+.between_ages select::-webkit-scrollbar-thumb,
+.between_ages option::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.289);
+}
+
+.take_chance {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.take_chance button {
+  width: 100%;
+  background-color: #574d9b;
+  cursor: pointer;
+  height: 50px;
+  border: #fff;
+  font-size: 18px;
+  transition: 0.3s ease;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: rgb(0 0 0 / 12%) 0 1px 6px, rgb(0 0 0 / 12%) 0 1px 4px;
+  border-radius: 5px;
+}
+
+.take_chance button:hover {
+  background-color: #7066b4;
+}
+
+.agreement_policy {
+  width: 100%;
+}
+.agreement_policy p {
+  font-size: 11px;
+  color: #717171;
+  text-align: center;
+}
+.agreement_policy p span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.mobile_background {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #22222280;
+  z-index: 80;
+}
+
+.mobile_logo {
+  position: absolute;
+  z-index: 85;
+  top: 15px;
+  left: 15px;
+  display: none;
+}
+.mobile_logo img {
+  width: 150px;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+.footer_list {
+  display: flex;
+  align-items: center;
+}
+.footer_list p {
+  margin: 0 10px;
+  color: #6b6b6b;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.footer_list p:hover {
+  transition: all 0.5s ease;
+  text-decoration: underline;
+  opacity: 0.8;
+  color: #717171;
+}
+.footer_copyright p {
+  font-size: 11px;
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+@media only screen and (max-width: 1280px) {
+  .home_page {
+    flex-direction: column;
+  }
+  .regisration_form {
+    margin-bottom: 40px;
+  }
+}
+@media only screen and (max-width: 630px) {
+  .home_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .my_genderis,
+  .sheeking_genderis {
+    flex-direction: column;
+  }
+  .between_ages span {
+    display: none;
+  }
+  .regisration_form {
+    width: 100%;
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 85;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .home_page {
+    background: #d4d2e9;
+  }
+  .right_img_circle div {
+    display: none;
+  }
+  .right_img_circle div img {
+    border-radius: 0%;
+}
+  .right_img_circle {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  .mob_circle_img {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .mob_circle_img img {
+    width: 100%;
+  }
+  .survey_2 {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .home_page {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .between_ages p {
+    font-size: 14px;
+  }
+  .form_title h1 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+  }
+  .form_title p {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  .modal_block {
+    padding: 0 15px;
+    border-radius: 10px;
+  }
+  .footer_list {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .footer_list p {
+    margin-bottom: 5px;
+  }
+  .right_img_circle {
+    height: 58vh;
+  }
+  .home_page {
+    padding: 50px 20px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .right_img_circle {
+    height: 54vh;
+  }
+}

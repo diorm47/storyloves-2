@@ -1,0 +1,91 @@
+.survey {
+  width: 100%;
+  padding: 0 30px;
+  height: 100%;
+}
+
+.survey h2 {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 40px;
+}
+.survey .sonf {
+  text-align: center;
+  margin-top: 15px;
+  opacity: 0.6;
+}
+
+.survey_1 .survey_ques {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 50px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.survey_progress {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #ddd;
+  height: 10px;
+  margin-bottom: 20px;
+}
+.progress_in_1 {
+  width: 10%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #0e8dc7;
+}
+.progress_in_2 {
+  width: 66%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #0e8dc7;
+}
+.progress_in_3 {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #0e8dc7;
+}
+
+.survey_list_item {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  cursor: pointer;
+  padding: 15px;
+}
+.survey_list_item:hover {
+  background-color: #0e8dc7;
+  color: #fff;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+.survey_list_item input {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 420px) {
+  .survey h2 {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  .sonf i {
+    font-size: 12px;
+  }
+  .survey_1 .survey_ques {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  .survey_list_item p {
+    font-size: 13px;
+  }
+  .section_text p i br {
+    display: none;
+  }
+  .section_text p {
+    font-size: 11px;
+  }
+}
