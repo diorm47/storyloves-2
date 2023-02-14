@@ -185,7 +185,7 @@ function Modal({ userAge }) {
   } = useForm();
 
   // const [userAge, setUserAge] = useState();
-
+  const [userName, setUserName] = useState();
   const [cityId, setCityId] = useState();
 
   const ref = useRef("");
@@ -215,6 +215,7 @@ function Modal({ userAge }) {
       setLocationError(true);
     }
     // setUserAge(data.age);
+    setUserName(data.name)
   };
   const checkEmail = async (e) => {
     let headersList = {
@@ -244,7 +245,7 @@ function Modal({ userAge }) {
     formdata.append("age", `${userAge}`);
     formdata.append("city_id", `${cityId}`);
     formdata.append("email", `${data.email}`);
-    formdata.append("name", `${data.name}`);
+    formdata.append("name", `${userName}`);
     formdata.append("password", `${data.password}`);
     if (params.get("source")) {
       formdata.append("source", `${params.get("source")}`);

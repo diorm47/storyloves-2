@@ -263,11 +263,11 @@ function HomePage() {
 
     let formdata = new FormData();
     formdata.append("ccode", `${ccode}`);
-    formdata.append("city", `${ref.current.state.userInput}`);
+    formdata.append("city", `${city}`);
     formdata.append("age", `${userAge}`);
     formdata.append("city_id", `${cityId}`);
     formdata.append("email", `${data.email}`);
-    formdata.append("name", `${data.name}`);
+    formdata.append("name", `${userName}`);
     formdata.append("password", `${data.password}`);
     if (params.get("source")) {
       formdata.append("source", `${params.get("source")}`);
