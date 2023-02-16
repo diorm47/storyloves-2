@@ -49,7 +49,7 @@ class Autocomplete extends Component {
     };
 
     let reqOptions = {
-      url: "http://ipwho.is/",
+      url: "https://ipwho.is/",
       method: "GET",
       headers: headersList,
     };
