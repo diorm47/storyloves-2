@@ -1,15 +1,13 @@
-import React, { Component, useRef, useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import logo from "../assets/logo.png";
 import "./home-page.css";
 import "./survey.css";
-import logo from "../assets/logo.png";
 
-import PropTypes from "prop-types";
 import axios from "axios";
 import { ReactComponent as ManIcon } from "../assets/man.svg";
-import { ReactComponent as WomanIcon } from "../assets/woman.svg";
 import { ReactComponent as Svg1 } from "../assets/svg1.svg";
 import { ReactComponent as Svg2 } from "../assets/svg2.svg";
 import { ReactComponent as Svg3 } from "../assets/svg3.svg";
@@ -17,171 +15,10 @@ import { ReactComponent as Svg4 } from "../assets/svg4.svg";
 import { ReactComponent as Svg5 } from "../assets/svg5.svg";
 import { ReactComponent as Svg6 } from "../assets/svg6.svg";
 import { ReactComponent as Svg7 } from "../assets/svg7.svg";
+import { ReactComponent as WomanIcon } from "../assets/woman.svg";
+import Autocomplete from "../autocomplete/autocomplete";
 import Quests from "../components/quests/quests";
-
-class Autocomplete extends Component {
-  static propTypes = {
-    suggestions: PropTypes.instanceOf(Array),
-  };
-
-  static defaultProps = {
-    suggestions: [],
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      // The active selection's index
-      activeSuggestion: 0,
-      // The suggestions that match the user's input
-      filteredSuggestions: [],
-      // Whether or not the suggestion list is shown
-      showSuggestions: false,
-      // What the user has entered
-      userInput: "",
-      countryCode: "US",
-    };
-  }
-
-  getCountry = async () => {
-    let headersList = {
-      Accept: "*/*",
-    };
-
-    let reqOptions = {
-      url: "https://ipwho.is/",
-      method: "GET",
-      headers: headersList,
-    };
-
-    let response = await axios.request(reqOptions);
-
-    this.setState({
-      countryCode: response.data.country_code,
-    });
-    this.props.setCcode(response.data.country_code);
-  };
-  componentDidMount() {
-    this.getCountry();
-  }
-  getData = [];
-  setSuggestions = async (props) => {
-    let headersList = {
-      Accept: "*/*",
-    };
-    let reqOptions = {
-      url: `https://api.storyloves.net/suggest/city?ccode=${this.state.countryCode}&query=${props}`,
-      method: "GET",
-      headers: headersList,
-    };
-    let response = await axios.request(reqOptions);
-    this.getData = response.data.suggestions.map(
-      (arr) => `${arr.country}, ${arr.administratives[0].name}, ${arr.name}`
-    );
-  };
-
-  onChange = (e) => {
-    const userInput = e.currentTarget.value;
-    this.setSuggestions(userInput);
-    const filteredSuggestions = this.getData;
-
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions,
-      showSuggestions: true,
-      userInput: e.currentTarget.value,
-    });
-  };
-
-  onClick = (e) => {
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-      userInput: e.currentTarget.innerText,
-    });
-  };
-
-  onKeyDown = (e) => {
-    const { activeSuggestion, filteredSuggestions } = this.state;
-
-    // User pressed the enter key
-    if (e.keyCode === 13) {
-      this.setState({
-        activeSuggestion: 0,
-        showSuggestions: false,
-        userInput: filteredSuggestions[activeSuggestion],
-      });
-    }
-    // User pressed the up arrow
-    else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion - 1 });
-    }
-    // User pressed the down arrow
-    else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion + 1 });
-    }
-  };
-
-  render() {
-    const {
-      onChange,
-      onClick,
-      onKeyDown,
-      state: {
-        activeSuggestion,
-        filteredSuggestions,
-        showSuggestions,
-        userInput,
-      },
-    } = this;
-
-    let suggestionsListComponent;
-
-    if (showSuggestions && userInput) {
-      if (filteredSuggestions.length) {
-        suggestionsListComponent = (
-          <ul class="suggestions">
-            {filteredSuggestions.map((suggestion, index) => {
-              let className;
-
-              if (index === activeSuggestion) {
-                className = "suggestion-active";
-              }
-
-              return (
-                <li className={className} key={suggestion} onClick={onClick}>
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      }
-    }
-
-    return (
-      <>
-        <input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={userInput}
-          placeholder="Location"
-        />
-        {suggestionsListComponent}
-      </>
-    );
-  }
-}
+import NeedntCityId from "../need-city-id/need-city-id";
 
 function HomePage() {
   useEffect(() => {
@@ -201,6 +38,7 @@ function HomePage() {
   const [userAge, setUserAge] = useState();
   const [cityId, setCityId] = useState();
   const [city, setCity] = useState();
+  const [needCityId, setKnow] = useState(false);
   const [ccode, setCcode] = useState("");
 
   const ref = useRef("");
@@ -238,9 +76,37 @@ function HomePage() {
       setAgeError(true);
     } else setSurvey(6);
   };
+  const getCountry = async () => {
+    let headersList = {
+      Accept: "*/*",
+    };
+
+    let reqOptions = {
+      url: "https://ipwho.is/",
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+
+    setCcode(response.data.country_code);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const needCity = async (ccode) => {
+    let headersList = {
+      Accept: "*/*",
+    };
+    let reqOptions = {
+      url: `https://api.storyloves.net/need_city_id?country=${ccode}`,
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+    setKnow(response.data);
+  };
 
   const getcityId = async () => {
-    let city = ref.current.state.userInput.split(",")[2].trim();
     let headersList = {
       Accept: "*/*",
     };
@@ -256,15 +122,22 @@ function HomePage() {
   };
 
   const firstField = (data) => {
-    getcityId();
-    if (ref.current.state.userInput) {
-      setlocationError(false);
-      setCity(ref.current.state.userInput);
-      setSurvey(7);
+    if (needCityId) {
+      setCity(ref.current.state.userInput.split(",")[2].trim());
+
+      getcityId();
+      if (city) {
+        setSurvey(7);
+      } else {
+      }
     } else {
-      setlocationError(true);
+      if (city) {
+        setSurvey(7);
+      } else {
+      }
     }
   };
+
   const checkEmail = async (e) => {
     let headersList = {
       Accept: "*/*",
@@ -289,9 +162,14 @@ function HomePage() {
 
     let formdata = new FormData();
     formdata.append("ccode", `${ccode}`);
-    formdata.append("city", `${city}`);
     formdata.append("age", `${userAge}`);
-    formdata.append("city_id", `${cityId}`);
+    if (needCityId) {
+      formdata.append("city_id", `${cityId}`);
+      formdata.append("city", `${city}`);
+    } else {
+      formdata.append("city", `${city}`);
+    }
+
     formdata.append("email", `${data.email}`);
     formdata.append("name", `${userName}`);
     formdata.append("password", `${data.password}`);
@@ -328,6 +206,11 @@ function HomePage() {
       });
     }
   };
+
+  useEffect(() => {
+    getCountry();
+    needCity(ccode);
+  }, [ccode, needCity]);
 
   return (
     <>
@@ -737,17 +620,32 @@ function HomePage() {
                         <h4>Set your Location</h4>
                       </div>
                       <div className="survey_location">
-                        <Autocomplete
-                          getcityId={getcityId}
-                          ref={ref}
-                          setCcode={setCcode}
-                        />
-                        {locationError ? (
-                          <p className="error_message">
-                            * Location is required!
-                          </p>
+                        {needCityId ? (
+                          <>
+                            <Autocomplete
+                              getcityId={getcityId}
+                              ref={ref}
+                              setCcode={setCcode}
+                              setKnow={setKnow}
+                            />
+                            {locationError ? (
+                              <span>* Location is required</span>
+                            ) : (
+                              ""
+                            )}
+                          </>
                         ) : (
-                          ""
+                          <>
+                            <NeedntCityId
+                              setCity={setCity}
+                              setCcode={setCcode}
+                            />
+                            {locationError ? (
+                              <span>* Location is required</span>
+                            ) : (
+                              ""
+                            )}
+                          </>
                         )}
                       </div>
 

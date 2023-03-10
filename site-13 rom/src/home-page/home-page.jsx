@@ -8,170 +8,8 @@ import logo from "../assets/logo.png";
 import PropTypes from "prop-types";
 import axios from "axios";
 import Survey from "../survey/survey";
-
-class Autocomplete extends Component {
-  static propTypes = {
-    suggestions: PropTypes.instanceOf(Array),
-  };
-
-  static defaultProps = {
-    suggestions: [],
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      // The active selection's index
-      activeSuggestion: 0,
-      // The suggestions that match the user's input
-      filteredSuggestions: [],
-      // Whether or not the suggestion list is shown
-      showSuggestions: false,
-      // What the user has entered
-      userInput: "",
-      countryCode: "US",
-    };
-  }
-
-  getCountry = async () => {
-    let headersList = {
-      Accept: "*/*",
-    };
-
-    let reqOptions = {
-      url: "https://ipwho.is/",
-      method: "GET",
-      headers: headersList,
-    };
-
-    let response = await axios.request(reqOptions);
-
-    this.setState({
-      countryCode: response.data.country_code,
-    });
-    this.props.setCcode(response.data.country_code);
-  };
-  componentDidMount() {
-    this.getCountry();
-  }
-  getData = [];
-  setSuggestions = async (props) => {
-    let headersList = {
-      Accept: "*/*",
-    };
-    let reqOptions = {
-      url: `https://api.storyloves.net/suggest/city?ccode=${this.state.countryCode}&query=${props}`,
-      method: "GET",
-      headers: headersList,
-    };
-    let response = await axios.request(reqOptions);
-    this.getData = response.data.suggestions.map(
-      (arr) => `${arr.country}, ${arr.administratives[0].name}, ${arr.name}`
-    );
-  };
-
-  onChange = (e) => {
-    const userInput = e.currentTarget.value;
-    this.setSuggestions(userInput);
-    const filteredSuggestions = this.getData;
-
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions,
-      showSuggestions: true,
-      userInput: e.currentTarget.value,
-    });
-  };
-
-  onClick = (e) => {
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-      userInput: e.currentTarget.innerText,
-    });
-  };
-
-  onKeyDown = (e) => {
-    const { activeSuggestion, filteredSuggestions } = this.state;
-
-    // User pressed the enter key
-    if (e.keyCode === 13) {
-      this.setState({
-        activeSuggestion: 0,
-        showSuggestions: false,
-        userInput: filteredSuggestions[activeSuggestion],
-      });
-    }
-    // User pressed the up arrow
-    else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion - 1 });
-    }
-    // User pressed the down arrow
-    else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion + 1 });
-    }
-  };
-
-  render() {
-    const {
-      onChange,
-      onClick,
-      onKeyDown,
-      state: {
-        activeSuggestion,
-        filteredSuggestions,
-        showSuggestions,
-        userInput,
-      },
-    } = this;
-
-    let suggestionsListComponent;
-
-    if (showSuggestions && userInput) {
-      if (filteredSuggestions.length) {
-        suggestionsListComponent = (
-          <ul class="suggestions">
-            {filteredSuggestions.map((suggestion, index) => {
-              let className;
-
-              if (index === activeSuggestion) {
-                className = "suggestion-active";
-              }
-
-              return (
-                <li className={className} key={suggestion} onClick={onClick}>
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      }
-    }
-
-    return (
-      <>
-        <input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={userInput}
-          placeholder="Locație"
-        />
-        {suggestionsListComponent}
-      </>
-    );
-  }
-}
+import Autocomplete from "../autocomplete/autocomplete";
+import NeedntCityId from "../need-city-id/need-city-id";
 
 function HomePage() {
   let scrollTTop = () => {
@@ -202,7 +40,8 @@ function HomePage() {
   const [userAge, setUserAge] = useState();
   const [userName, setUserName] = useState();
   const [cityId, setCityId] = useState();
-
+  const [city, setCity] = useState();
+  const [needCityId, setKnow] = useState(false);
   const ref = useRef("");
 
   const getcityId = async () => {
@@ -221,16 +60,56 @@ function HomePage() {
     setCityId(response.data.suggestions[0]._id);
   };
 
+  const getCountry = async () => {
+    let headersList = {
+      Accept: "*/*",
+    };
+
+    let reqOptions = {
+      url: "https://ipwho.is/",
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+
+    setCcode(response.data.country_code);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const needCity = async (ccode) => {
+    let headersList = {
+      Accept: "*/*",
+    };
+    let reqOptions = {
+      url: `https://api.storyloves.net/need_city_id?country=${ccode}`,
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+    setKnow(response.data);
+  };
+
   const firstField = (data) => {
-    getcityId();
-    if (ref.current.state.userInput) {
-      setLocationError(false);
-      setSeconFieldActive(2);
+    if (needCityId) {
+      getcityId();
+      if (ref.current.state.userInput) {
+        setLocationError(false);
+        setSeconFieldActive(2);
+        setUserAge(data.age);
+        setUserName(data.name);
+      } else {
+        setLocationError(true);
+      }
     } else {
-      setLocationError(true);
+      if (city) {
+        setUserAge(data.age);
+        setUserName(data.name);
+        setSeconFieldActive(2);
+      } else {
+        setLocationError(true);
+      }
     }
-    setUserAge(data.age);
-    setUserName(data.name)
   };
   const checkEmail = async (e) => {
     let headersList = {
@@ -256,9 +135,14 @@ function HomePage() {
 
     let formdata = new FormData();
     formdata.append("ccode", `${ccode}`);
-    formdata.append("city", `${ref.current.state.userInput}`);
     formdata.append("age", `${userAge}`);
-    formdata.append("city_id", `${cityId}`);
+    if (needCityId) {
+      formdata.append("city_id", `${cityId}`);
+      formdata.append("city", `${ref.current.state.userInput}`);
+    } else {
+      formdata.append("city", `${city}`);
+    }
+
     formdata.append("email", `${data.email}`);
     formdata.append("name", `${userName}`);
     formdata.append("password", `${data.password}`);
@@ -295,7 +179,10 @@ function HomePage() {
       });
     }
   };
-
+  useEffect(() => {
+    getCountry();
+    needCity(ccode);
+  }, [ccode, needCity]);
   return (
     <>
       <header>
@@ -422,12 +309,30 @@ function HomePage() {
                     {errors.name && <span>* Numele este obligatoriu</span>}
                   </div>
                   <div className="your_city">
-                    <Autocomplete
-                      getcityId={getcityId}
-                      ref={ref}
-                      setCcode={setCcode}
-                    />
-                    {locationError ? <span>* Locația este necesară</span> : ""}
+                    {needCityId ? (
+                      <>
+                        <Autocomplete
+                          getcityId={getcityId}
+                          ref={ref}
+                          setCcode={setCcode}
+                          setKnow={setKnow}
+                        />
+                        {locationError ? (
+                          <span>* Locația este necesară</span>
+                        ) : (
+                          ""
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <NeedntCityId setCity={setCity} setCcode={setCcode} />
+                        {locationError ? (
+                          <span>* Locația este necesară</span>
+                        ) : (
+                          ""
+                        )}
+                      </>
+                    )}
                   </div>
 
                   <div className="submit_btn">

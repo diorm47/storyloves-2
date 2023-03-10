@@ -1,184 +1,20 @@
-import React, { Component, useRef, useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "./home-page.css";
-import logo from "../assets/logo.png";
-
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { ReactComponent as ArrowBack } from "../assets/arrow-back.svg";
+import { ReactComponent as Arrow } from "../assets/arrow.svg";
+import bot from "../assets/bot.png";
 import { ReactComponent as Svg_1 } from "../assets/logo-1.svg";
 import { ReactComponent as Svg_2 } from "../assets/logo-2.svg";
 import { ReactComponent as Svg_3 } from "../assets/logo-3.svg";
 import { ReactComponent as Svg_4 } from "../assets/logo-4.svg";
-import { ReactComponent as Arrow } from "../assets/arrow.svg";
-import { ReactComponent as ArrowBack } from "../assets/arrow-back.svg";
-import bot from "../assets/bot.png";
+import logo from "../assets/logo.png";
+import Autocomplete from "../autocomplete/autocomplete";
+import NeedntCityId from "../need-city-id/need-city-id";
+import "./home-page.css";
 
-import PropTypes from "prop-types";
 import axios from "axios";
-
-class Autocomplete extends Component {
-  static propTypes = {
-    suggestions: PropTypes.instanceOf(Array),
-  };
-
-  static defaultProps = {
-    suggestions: [],
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      // The active selection's index
-      activeSuggestion: 0,
-      // The suggestions that match the user's input
-      filteredSuggestions: [],
-      // Whether or not the suggestion list is shown
-      showSuggestions: false,
-      // What the user has entered
-      userInput: "",
-      countryCode: "US",
-    };
-  }
-
-  getCountry = async () => {
-    let headersList = {
-      Accept: "*/*",
-    };
-
-    let reqOptions = {
-      url: "https://ipwho.is/",
-      method: "GET",
-      headers: headersList,
-    };
-
-    let response = await axios.request(reqOptions);
-
-    this.setState({
-      countryCode: response.data.country_code,
-    });
-    this.props.setCcode(response.data.country_code);
-  };
-  componentDidMount() {
-    this.getCountry();
-  }
-  getData = [];
-  setSuggestions = async (props) => {
-    let headersList = {
-      Accept: "*/*",
-    };
-    let reqOptions = {
-      url: `https://api.storyloves.net/suggest/city?ccode=${this.state.countryCode}&query=${props}`,
-      method: "GET",
-      headers: headersList,
-    };
-    let response = await axios.request(reqOptions);
-    this.getData = response.data.suggestions.map(
-      (arr) => `${arr.country}, ${arr.administratives[0].name}, ${arr.name}`
-    );
-  };
-
-  onChange = (e) => {
-    const userInput = e.currentTarget.value;
-    this.setSuggestions(userInput);
-    const filteredSuggestions = this.getData;
-
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions,
-      showSuggestions: true,
-      userInput: e.currentTarget.value,
-    });
-  };
-
-  onClick = (e) => {
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-      userInput: e.currentTarget.innerText,
-    });
-  };
-
-  onKeyDown = (e) => {
-    const { activeSuggestion, filteredSuggestions } = this.state;
-
-    // User pressed the enter key
-    if (e.keyCode === 13) {
-      this.setState({
-        activeSuggestion: 0,
-        showSuggestions: false,
-        userInput: filteredSuggestions[activeSuggestion],
-      });
-    }
-    // User pressed the up arrow
-    else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion - 1 });
-    }
-    // User pressed the down arrow
-    else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-      }
-
-      this.setState({ activeSuggestion: activeSuggestion + 1 });
-    }
-  };
-
-  render() {
-    const {
-      onChange,
-      onClick,
-      onKeyDown,
-      state: {
-        activeSuggestion,
-        filteredSuggestions,
-        showSuggestions,
-        userInput,
-      },
-    } = this;
-
-    let suggestionsListComponent;
-
-    if (showSuggestions && userInput) {
-      if (filteredSuggestions.length) {
-        suggestionsListComponent = (
-          <ul class="suggestions">
-            {filteredSuggestions.map((suggestion, index) => {
-              let className;
-
-              if (index === activeSuggestion) {
-                className = "suggestion-active";
-              }
-
-              return (
-                <li className={className} key={suggestion} onClick={onClick}>
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      }
-    }
-
-    return (
-      <>
-        <input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={userInput}
-          placeholder="Localización"
-        />
-        {suggestionsListComponent}
-      </>
-    );
-  }
-}
 
 function HomePage() {
   useEffect(() => {
@@ -200,7 +36,6 @@ function HomePage() {
   } = useForm();
 
   const [userAge, setUserAge] = useState();
-  const [city, setCity] = useState("");
   const [userDay, setUserDay] = useState();
   const [userMonth, setUserMonth] = useState();
   const [myMess_1, setmyMess_1] = useState("");
@@ -208,7 +43,8 @@ function HomePage() {
   const [userName, setUserName] = useState();
   const [cityId, setCityId] = useState();
   const [ccode, setCcode] = useState("");
-
+  const [city, setCity] = useState();
+  const [needCityId, setKnow] = useState(true);
   const ref = useRef("");
 
   const getcityId = async () => {
@@ -226,18 +62,55 @@ function HomePage() {
     let response = await axios.request(reqOptions);
     setCityId(response.data.suggestions[0]._id);
   };
+  const getCountry = async () => {
+    let headersList = {
+      Accept: "*/*",
+    };
 
+    let reqOptions = {
+      url: "https://ipwho.is/",
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+
+    setCcode(response.data.country_code);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const needCity = async (ccode) => {
+    let headersList = {
+      Accept: "*/*",
+    };
+    let reqOptions = {
+      url: `https://api.storyloves.net/need_city_id?country=${ccode}`,
+      method: "GET",
+      headers: headersList,
+    };
+
+    let response = await axios.request(reqOptions);
+    setKnow(response.data);
+  };
   const firstField = (data) => {
-    getcityId();
-    if (ref.current.state.userInput) {
-      setLocationError(false);
-      setSeconFieldActive(4);
-      setCity(ref.current.state.userInput);
+    if (needCityId) {
+      getcityId();
+      if (ref.current.state.userInput) {
+        setLocationError(false);
+        setSeconFieldActive(4);
+        setUserAge(data.age);
+        setUserName(data.name);
+      } else {
+        setLocationError(true);
+      }
     } else {
-      setLocationError(true);
+      if (city) {
+        setUserAge(data.age);
+        setUserName(data.name);
+        setSeconFieldActive(4);
+      } else {
+        setLocationError(true);
+      }
     }
-
-    setUserName(data.name);
   };
   const checkEmail = async (e) => {
     let headersList = {
@@ -263,9 +136,14 @@ function HomePage() {
 
     let formdata = new FormData();
     formdata.append("ccode", `${ccode}`);
-    formdata.append("city", `${city}`);
     formdata.append("age", `${userAge}`);
-    formdata.append("city_id", `${cityId}`);
+    if (needCityId) {
+      formdata.append("city_id", `${cityId}`);
+      formdata.append("city", `${city}`);
+    } else {
+      formdata.append("city", `${city}`);
+    }
+
     formdata.append("email", `${data.email}`);
     formdata.append("name", `${userName}`);
     formdata.append("password", `${data.password}`);
@@ -303,7 +181,10 @@ function HomePage() {
       });
     }
   };
-
+  useEffect(() => {
+    getCountry();
+    needCity(ccode);
+  }, [ccode, needCity]);
   return (
     <>
       <header>
@@ -681,15 +562,32 @@ function HomePage() {
                         {errors.name && <span>* Se requiere el nombre</span>}
                       </div>
                       <div className="your_city">
-                        <Autocomplete
-                          getcityId={getcityId}
-                          ref={ref}
-                          setCcode={setCcode}
-                        />
-                        {locationError ? (
-                          <span>* Se requiere ubicación</span>
+                        {needCityId ? (
+                          <>
+                            <Autocomplete
+                              getcityId={getcityId}
+                              ref={ref}
+                              setCcode={setCcode}
+                              setKnow={setKnow}
+                            />
+                            {locationError ? (
+                              <span>* Se requiere el nombre</span>
+                            ) : (
+                              ""
+                            )}
+                          </>
                         ) : (
-                          ""
+                          <>
+                            <NeedntCityId
+                              setCity={setCity}
+                              setCcode={setCcode}
+                            />
+                            {locationError ? (
+                              <span>* Se requiere el nombre</span>
+                            ) : (
+                              ""
+                            )}
+                          </>
                         )}
                       </div>
 
